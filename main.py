@@ -22,6 +22,8 @@ s = socket.socket()
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 s.bind(addr)
 s.listen(1)
+ifconfig = network.WLAN(network.STA_IF).ifconfig()
+ip = ifconfig[0]
 
 ###############################################
 #  Setup OLED
@@ -61,7 +63,8 @@ while(1):
     current_time = rtc.datetime()
 
     oled.fill(0)
-    oled.text("UTC: {4:02d}:{5:02d}:{6:02d}".format(*current_time), 0, 0)
+    oled.text(" UTC: {4:02d}:{5:02d}:{6:02d}".format(*current_time), 0, 0)
+    oled.text(" {}".format(ip), 0, 9)
 
     #t.text("Temp: {:.1f}{}".format(temp,unit))
     #oled.text("IP: {}".format(ip), 0, 0)
