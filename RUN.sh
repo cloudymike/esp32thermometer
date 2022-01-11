@@ -5,7 +5,12 @@ CURDIR=$(pwd)
 #TOPDIR=${CURDIR%/*}
 DEVKITDIR=$CURDIR/micropythonexamples/DEVKITv1
 
+echo "Loading secret configs"
+# Enter your path to your WLAN configuration file here, see ../wlan/wlanconfig.py for example
+$PUSHCMD ~/secrets/wlanconfig.py
+
 echo "Loading program files..."
+$PUSHCMD $DEVKITDIR/wlan/wlan.py
 $PUSHCMD $DEVKITDIR/textout/textout.py
 $PUSHCMD $DEVKITDIR/LED/LED.py
 $PUSHCMD $DEVKITDIR/tempreader/tempreader.py
