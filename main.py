@@ -32,6 +32,20 @@ def displayLambda(tempDevice, oled, rtc, ip):
     bignumber.bigTemp(oled, temperature, unit)
     oled.show()
 
+def web_page():
+  if LED.LED.value() == 1:
+    gpio_state="ON"
+  else:
+    gpio_state="OFF"
+
+  html = """<html><head> <title>ESP Web Server</title> <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,"> <style>html{font-family: Helvetica; display:inline-block; margin: 0px auto; text-align: center;}
+  h1{color: #0F3376; padding: 2vh;}p{font-size: 1.5rem;}.button{display: inline-block; background-color: #e7bd3b; border: none;
+  border-radius: 4px; color: white; padding: 16px 40px; text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}
+  .button2{background-color: #4286f4;}</style></head><body> <h1>ESP Web Server</h1>
+  <p>Blue LED: <strong>""" + gpio_state + """</strong></p><p><a href="/?led=on"><button class="button">ON</button></a></p>
+  <p><a href="/?led=off"><button class="button button2">OFF</button></a></p><p>Temperature: <strong>""" + str(temperature) + """</strong></p></body></html>"""
+  return html
 
 
 ###############################################
@@ -71,16 +85,39 @@ except:
     #Use old time
 
 
-
-t = textout.textout()
+###############################################
+#  Setup temperature reader
+###############################################
 unit='F'
 tempDevice = tempreader.tempreader(unit)
 
+###############################################
+#  Setup Display loop
+###############################################
 displaytimer = machine.Timer(-1)
 displaytimer.init(period=1000,
                   mode=machine.Timer.PERIODIC,
                   callback=lambda t:displayLambda(tempDevice, oled, rtc, ip))
 
+print('Starting while loop')
 while(1):
-    LED.LED.value(abs(LED.LED.value()-1))
-    time.sleep_ms(750)
+  #LED.LED.value(abs(LED.LED.value()-1))
+  conn, addr = s.accept()
+  print('Got a connection from %s' % str(addr))
+  request = conn.recv(1024)
+  request = str(request)
+  print('Content = %s' % request)
+  led_on = request.find('/?led=on')
+  led_off = request.find('/?led=off')
+  if led_on == 6:
+    print('LED ON')
+    LED.LED.value(1)
+  if led_off == 6:
+    print('LED OFF')
+    LED.LED.value(0)
+  response = web_page()
+  conn.send('HTTP/1.1 200 OK\n')
+  conn.send('Content-Type: text/html\n')
+  conn.send('Connection: close\n\n')
+  conn.sendall(response)
+  conn.close()
