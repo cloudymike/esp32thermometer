@@ -33,40 +33,6 @@ def displayLambda(tempDevice, oled, rtc, ip):
     oled.show()
 
 ###############################################
-# Web pages
-# Complete html (or not for raw text)
-# Called from "routes"
-###############################################
-def web_page():
-  if LED.LED.value() == 1:
-    gpio_state="LED ON"
-  else:
-    gpio_state="LED OFF"
-
-  html = """<html><head> <title>Thermometer Server</title> <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="data:,">
-  <style>
-  html{font-family: Helvetica; display:inline-block; margin: 0px auto; text-align: center;}
-  h1{color: #0F3376; padding: 2vh;}
-  p{font-size: 1.5rem;}
-  .button{display: inline-block; background-color: #4286f4; border: none;border-radius: 4px;
-          color: white; padding: 16px 40px; text-decoration: none; font-size: 30px;
-          margin: 2px; cursor: pointer;}
-  .button2{background-color: #4286f4;}
-  </style>
-  </head><body>
-  <h1>Thermometer Server</h1>
-  <p><strong>Temperature: """ + str(temperature) + """</strong></p>
-  <p><a href="/?led=toggle"><button class="button button">""" + gpio_state + """</button></a></p>
-  <p style="font-size: 10px;">Route for just temperature: <a href="/temperature">/temperature</a></p>
-  </body></html>"""
-  return html
-
-# Just the temperature number. Think curl
-def temperature_page():
-    return(str(temperature))
-
-###############################################
 # Setup WLAN
 ###############################################
 wlan.do_connect()
@@ -119,23 +85,17 @@ displaytimer.init(period=1000,
 
 print('Starting while loop')
 while(1):
-    conn, addr = s.accept()
-    print('Got a connection from %s' % str(addr))
-    request = conn.recv(1024)
-    request = str(request)
-    print('Content = %s' % request)
-    led_toggle = request.find('/?led=toggle')
-    temperature_route = request.find('/temperature')
-    if temperature_route == 6:
-        response = temperature_page()
-    elif led_toggle == 6:
-        LED.LED.value(abs(LED.LED.value()-1))
-        response = web_page()
-    else:
-        response = web_page()
-    print('Sending response')
-    conn.send('HTTP/1.1 200 OK\n')
-    conn.send('Content-Type: text/html\n')
-    conn.send('Connection: close\n\n')
-    conn.sendall(response)
-    conn.close()
+    LED.LED.value(abs(LED.LED.value()-1))
+
+    cl, addr = s.accept()
+    print('client connected from', addr)
+    cl_file = cl.makefile('rwb', 0)
+    while True:
+        line = cl_file.readline()
+        if not line or line == b'\r\n':
+            break
+        print('Content = %s' % line)
+    response = str(tempDevice.get_temp())
+    cl.send('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n')
+    cl.send(response)
+    cl.close()
