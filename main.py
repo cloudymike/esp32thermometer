@@ -10,6 +10,28 @@ import socket
 import wlan
 import network
 import ntptime
+import LED
+import time
+temperature = 0
+
+
+###############################################
+# Display loop, running every second
+# Reads temperature and time and displays them
+# Note temperature is a global, accessible from
+# rest of program
+###############################################
+def displayLambda(tempDevice, oled, rtc, ip):
+    global temperature
+    temperature = tempDevice.get_temp()
+    current_time = rtc.datetime()
+
+    oled.fill(0)
+    oled.text(" UTC: {4:02d}:{5:02d}:{6:02d}".format(*current_time), 0, 0)
+    oled.text(" {}".format(ip), 0, 9)
+    bignumber.bigTemp(oled, temperature, unit)
+    oled.show()
+
 
 
 ###############################################
@@ -54,29 +76,11 @@ t = textout.textout()
 unit='F'
 tempDevice = tempreader.tempreader(unit)
 
-
-
+displaytimer = machine.Timer(-1)
+displaytimer.init(period=1000,
+                  mode=machine.Timer.PERIODIC,
+                  callback=lambda t:displayLambda(tempDevice, oled, rtc, ip))
 
 while(1):
-
-    temp = tempDevice.get_temp()
-    current_time = rtc.datetime()
-
-    oled.fill(0)
-    oled.text(" UTC: {4:02d}:{5:02d}:{6:02d}".format(*current_time), 0, 0)
-    oled.text(" {}".format(ip), 0, 9)
-
-    #t.text("Temp: {:.1f}{}".format(temp,unit))
-    #oled.text("IP: {}".format(ip), 0, 0)
-    #t.text("IP: {}".format(addr))
-    bignumber.bigTemp(oled, temp, unit)
-    oled.show()
+    LED.LED.value(abs(LED.LED.value()-1))
     time.sleep_ms(750)
-
-
-'''
-    tempdict = tempDevice.get_temp_list()
-    for deviceID, temp in tempdict.items():
-        print("ID: {}, Temp: {}".format(deviceID, temp))
-        t.text("Temp: {:.1f}{}".format(temp,unit))
-'''
