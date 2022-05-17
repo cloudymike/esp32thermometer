@@ -14,6 +14,7 @@ $PUSHCMD $DEVKITDIR/wlan/wlan.py
 $PUSHCMD $DEVKITDIR/textout/textout.py
 $PUSHCMD $DEVKITDIR/LED/LED.py
 $PUSHCMD $DEVKITDIR/tempreader/tempreader.py
+$PUSHCMD $DEVKITDIR/oled/gfx.py
 $PUSHCMD $DEVKITDIR/oled/ssd1306.py
 $PUSHCMD $DEVKITDIR/oled/bignumber.py
 
