@@ -1,7 +1,8 @@
 //Module to create a knurl pocket suitable for Heat-set inserts
 
-// Article about knurl insert
+// Articles about knurl insert
 //https://hackaday.com/2019/02/28/threading-3d-printed-parts-how-to-use-heat-set-inserts/
+//https://clevercreations.org/brass-threaded-inserts-plastic-3d-printing/
 
 //Global vars
 $fa = 1;
