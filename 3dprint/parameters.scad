@@ -1,5 +1,5 @@
 // Case for Halfsize Electrocookie board
-
+// Parameters for include to keep them same for top and bottom. 
 
 //Global vars
 $fa = 1;
@@ -10,9 +10,7 @@ box_width = 70;
 wall_depth = 5;
 corner_radius=5;
 
-knurl_radius = 2.5;
 knurl_depth = 5;
-knurl_wall = 2.5;
 
 corner_screw_distance = 5;
 
