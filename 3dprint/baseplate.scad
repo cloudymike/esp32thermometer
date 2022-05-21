@@ -1,26 +1,18 @@
 // Case for Halfsize Electrocookie board
 
+include <parameters.scad>
 use <knurlpocket.scad>
+use <MCAD/boxes.scad>
 
-//Global vars
-$fa = 1;
-$fs = 0.4;
-
-base_length = 106;
-base_width = 70;
-base_height = 5;
-
-knurl_radius = 2.5;
-knurl_depth = 5;
-knurl_wall = 2.5;
-
-corner_screw_distance = 5;
-
-
+base_height = wall_depth;
+base_length = box_length;
+base_width = box_width;
+echo("baseplate size:",base_length,base_width,base_height);
 
 //base plate
 difference() {
-  cube([base_length,base_width,base_height],center=true);
+  //cube([base_length,base_width,base_height],center=true);
+  roundedBox(size=[base_length,base_width,base_height],radius=corner_radius,sidesonly=true);
   translate([base_length/2-corner_screw_distance,
     base_width/2-corner_screw_distance,
     0.001])
@@ -46,10 +38,5 @@ translate([36.85,0,5])
     m3knurl_ring();
 translate([- 36.85,0,5])
     m3knurl_ring();
-
-
-
-
-
 
 
