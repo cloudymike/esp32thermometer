@@ -34,9 +34,9 @@ difference() {
 
 
 //top knurdle holder for PCB standoff
-translate([36.85,0,5])
+translate([(m3_hole_distance/2),0,5])
     m3knurl_ring();
-translate([- 36.85,0,5])
+translate([-(m3_hole_distance/2),0,5])
     m3knurl_ring();
 
 

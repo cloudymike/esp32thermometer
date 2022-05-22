@@ -63,5 +63,5 @@ difference() {
 
 //Size of electrocookie board for testing
 //Do not include in design
-//roundedBox(size=[88.9,52.1,1],radius=5.1,sidesonly=true);
+//roundedBox(size=[board_length,board_width,1],radius=5.1,sidesonly=true);
 
