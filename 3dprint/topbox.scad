@@ -1,4 +1,4 @@
-// Case for Halfsize Electrocookie board
+// Case for Electrocookie board
 // Top and actual box
 
 include <parameters.scad>

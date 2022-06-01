@@ -1,4 +1,4 @@
-// Case for Halfsize Electrocookie board
+// Case for Electrocookie board
 
 include <parameters.scad>
 use <knurlpocket.scad>
@@ -34,9 +34,18 @@ difference() {
 
 
 //top knurdle holder for PCB standoff
-translate([(m3_hole_distance/2),0,5])
-    m3knurl_ring();
-translate([-(m3_hole_distance/2),0,5])
-    m3knurl_ring();
-
+if (m3_hole_distance * 2 < base_length) { 
+    translate([(m3_hole_distance),0,5])
+        m3knurl_ring();
+    translate([-(m3_hole_distance),0,5])
+        m3knurl_ring();
+    translate([0,0,5])
+        m3knurl_ring();
+} 
+else {
+    translate([(m3_hole_distance/2),0,5])
+        m3knurl_ring();
+    translate([-(m3_hole_distance/2),0,5])
+        m3knurl_ring();
+}
 
