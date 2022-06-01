@@ -91,7 +91,7 @@ if (is_undef(display_pin1_row)) {
     echo("No display");
 }
 else {
-    echo("display at ", display_pin1_row);
+    echo("display at row", display_pin1_row);
 }
 
 
