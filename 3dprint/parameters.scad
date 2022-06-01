@@ -2,12 +2,27 @@
 // Parameters for include to keep them same for top and bottom.
 // Provide parameters for different electrocookie boards
 // Default to halfsize.
+// All sizes in mm (even though it is mostly inch based board)
 
-//Global vars
+//TODO, this should be modulerized
+//For now keep the vars in an include file
+
+//================Customization variables=========================
+//Define type of electrocookie board
+// full, half, mini
+board_version = "half";
+
+// Row where the first pin of the deplay is placed
+// Comment out if no display
+// Display type is 0.96" OLED
+display_pin1_row = 23;
+//=================End of customization===========================
+
+
+
+//Global rendering vars
 $fa = 1;
 $fs = 0.4;
-
-board_version = "half";
 
 // board_length
 board_length =
@@ -33,9 +48,25 @@ row_count =
 (board_version == "half") ? 30:
 (board_version == "mini") ? 17:30;
 
+//Distance from edge to first row
+first_row =
+(board_version == "full") ? 7.65:
+(board_version == "half") ? 7.6:
+(board_version == "mini") ? 5.1:7.6;
+
+first_column =
+(board_version == "full") ? 12:
+(board_version == "half") ? 12:
+(board_version == "mini") ? 5.1:12;
+
+
+//Common parameters
 
 board_buffer = 3;
 wall_depth = 5;
+
+row_spacing = 2.54;
+
 
 box_length = board_length +2*wall_depth + 2*board_buffer;
 box_width = board_width + 2*wall_depth + 2*board_buffer;
@@ -44,3 +75,23 @@ corner_radius=5;
 knurl_depth = 5;
 
 corner_screw_distance = 5;
+
+// Custom features
+
+// OLED display
+oled_width = 27.40;
+oled_display_width = oled_width;
+oled_height = 28;
+oled_display_height = 15;
+oled_bottom_space = 8;
+oled_pin1 = 10;
+oled_pin_from_top = 2;
+
+if (is_undef(display_pin1_row)) {
+    echo("No display");
+}
+else {
+    echo("display at row", display_pin1_row);
+}
+
+
