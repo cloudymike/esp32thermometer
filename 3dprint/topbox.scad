@@ -59,6 +59,26 @@ difference() {
     -(top_width/2-corner_screw_distance),
     0])
     cylinder(r=screw_radius,h=top_height+0.01, center=true);
+
+
+// display hole if exist
+    if (!is_undef(display_pin1_row)) {
+        // Assume it is in column J
+        oled_center_from_top = first_column+(oled_height/2-oled_pin_from_top);
+        oled_top_space = oled_height - oled_display_height - oled_bottom_space;
+        y_offset = oled_bottom_space - oled_top_space;
+        display_center_from_top = oled_center_from_top - y_offset;
+        oled_center_y = - (board_width/2 - display_center_from_top);
+        // Use display_row
+        oled_pin1_from_left = first_row + (display_pin1_row-1)*row_spacing;
+        oled_center_from_pin1 = oled_width/2 - oled_pin1;
+        oled_center_x = (oled_pin1_from_left + oled_center_from_pin1) - board_length/2;
+        echo("OLED center",oled_center_x, oled_center_y);
+        echo("OLED left edge from box edge",box_length/2 + oled_center_x - oled_display_width/2);
+        echo("OLED bottom edge from box edge",box_width/2 - oled_center_y - oled_display_height/2);
+        translate([oled_center_x, oled_center_y, 0])
+            cube([oled_display_width,oled_display_height,top_height+1],center=true);                
+    }
 }
 
 //Size of electrocookie board for testing
