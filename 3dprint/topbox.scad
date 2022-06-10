@@ -5,8 +5,9 @@ include <parameters.scad>
 use <knurlpocket.scad>
 use <MCAD/boxes.scad>
 
-board_height = 18;
-top_height = wall_depth + board_height + knurl_depth;
+board_height = 17.25; 
+air_gap = 5.75; // space above top of board
+top_height = wall_depth + board_height + knurl_depth + air_gap;
 top_length = box_length;
 top_width = box_width;
 screw_radius = 1.75;
@@ -78,6 +79,25 @@ difference() {
         echo("OLED bottom edge from box edge",box_width/2 - oled_center_y - oled_display_height/2);
         translate([oled_center_x, oled_center_y, 0])
             cube([oled_display_width,oled_display_height,top_height+1],center=true);                
+    }
+
+// USB hole if ESP32 exist
+    if (!is_undef(ESP32_pin1_column)) {
+        
+        usb_width = 12;
+        usb_height = 8;
+        usb_center_from_bottom = 21;
+
+        // center_z is 21mm from bottom plate or top of this print
+        center_z = top_height / 2 - usb_center_from_bottom;
+        // If Column A, half row above center Y, if B half row below center Y
+        center_y = (ESP32_pin1_column == "A") ? row_spacing/2 : -row_spacing/2;
+        translate([-top_length/2, center_y, center_z])
+            cube([2*wall_depth, usb_width,usb_height],center=true);  
+        echo("Looking at outside, plate at bottom");
+        echo("usb right edge from box edge",top_width/2-center_y-usb_width/2);
+        echo("usb bottom edge from bottom edge",usb_center_from_bottom-usb_height/2);
+        
     }
 }
 

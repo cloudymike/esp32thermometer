@@ -12,10 +12,15 @@
 // full, half, mini
 board_version = "half";
 
-// Row where the first pin of the deplay is placed
+// Row where the first pin of the display is placed
 // Comment out if no display
 // Display type is 0.96" OLED
 display_pin1_row = 23;
+
+// Column where the first pin of the ESP32 board is placed
+// Comment out if no ESP32
+// ESP32 board is DEVKIT, 30pin
+ESP32_pin1_column = "B";
 //=================End of customization===========================
 
 
