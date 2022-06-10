@@ -17,6 +17,11 @@ board_version = "half";
 // Display type is 0.96" OLED
 display_pin1_row = 23;
 
+// Row where the first pin of the phone jack is placed
+// Comment out if no phone jack
+// Assume using column A
+jack_pin1_row = 16;
+
 // Column where the first pin of the ESP32 board is placed
 // Comment out if no ESP32
 // ESP32 board is DEVKIT, 30pin
