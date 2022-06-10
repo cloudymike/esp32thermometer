@@ -99,6 +99,26 @@ difference() {
         echo("usb bottom edge from bottom edge",usb_center_from_bottom-usb_height/2);
         
     }
+// Jack hole if exist
+    if (!is_undef(jack_pin1_row)) {
+        
+        jack_radius = 6;
+        jack_center_from_bottom = 12;
+
+        // center_z is 12mm from bottom plate or top of this print
+        center_z = top_height / 2 - jack_center_from_bottom;
+        // center_x is pin1 + 2 row_spacings
+        // add 1, 2 more -1 as as first pin is 1 not 0
+        board_x = first_column + (jack_pin1_row + 1) * row_spacing;
+        center_x = board_x - board_length/2;
+        translate([center_x, top_width/2, center_z])
+            rotate([90,0,0])
+            cylinder(r=jack_radius,h=2*wall_depth, center=true);  
+        echo("Looking at outside, plate at bottom");
+        echo("jack center from box right edge",top_length/2-center_x);
+        echo("jack center from bottom edge",jack_center_from_bottom);
+        
+    }
 }
 
 //Size of electrocookie board for testing
