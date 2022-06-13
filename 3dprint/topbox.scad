@@ -1,6 +1,15 @@
 // Case for Electrocookie board
 // Top and actual box
 
+
+// TODO
+// Side walls are 2.5 mm. OK but change name of params to reflect reality
+// Top is 7.5 mm
+//   Full 5 mm depth
+//   -5mm from center, but should be 2.5 mm and then if wall is really 2.5 mm change wall depth
+// With this box can be 5mm lower and USB port still fit
+
+
 include <parameters.scad>
 use <knurlpocket.scad>
 use <MCAD/boxes.scad>
@@ -109,7 +118,7 @@ difference() {
         center_z = top_height / 2 - jack_center_from_bottom;
         // center_x is pin1 + 2 row_spacings
         // add 1, 2 more -1 as as first pin is 1 not 0
-        board_x = first_column + (jack_pin1_row + 1) * row_spacing;
+        board_x = first_row + (jack_pin1_row + 1) * row_spacing;
         center_x = board_x - board_length/2;
         translate([center_x, top_width/2, center_z])
             rotate([90,0,0])
