@@ -22,10 +22,10 @@ top_width = box_width;
 screw_radius = 1.75;
 echo("topbox size:",top_length,top_width,top_height);
 
-inside_length = top_length-wall_depth;
-inside_width = top_width-wall_depth;
-inside_height = top_height-wall_depth;
-inside_offset = wall_depth;
+inside_length = top_length-2*wall_depth;
+inside_width = top_width-2*wall_depth;
+inside_height = top_height-2*wall_depth;
+inside_offset = 2*wall_depth;
 echo("Inside size:",inside_length,inside_width,inside_height);
 echo("Side wall width:",(top_length-inside_length)/2);
 echo("Top wall width:",top_height - inside_height+inside_offset/2);
