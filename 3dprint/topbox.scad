@@ -27,7 +27,7 @@ inside_width = top_width-wall_depth;
 inside_height = top_height-wall_depth;
 inside_offset = wall_depth;
 echo("Inside size:",inside_length,inside_width,inside_height);
-echo("Wall width:",(top_length-inside_length)/2);
+echo("Side wall width:",(top_length-inside_length)/2);
 echo("Top wall width:",top_height - inside_height+inside_offset/2);
 
 
