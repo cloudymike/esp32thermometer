@@ -16,7 +16,7 @@ use <MCAD/boxes.scad>
 
 board_height = 17.25; 
 air_gap = 5.75; // space above top of board
-top_height = wall_depth + board_height + knurl_depth + air_gap;
+top_height = 2*wall_depth + board_height + knurl_depth + air_gap;
 top_length = box_length;
 top_width = box_width;
 screw_radius = 1.75;
@@ -29,27 +29,27 @@ difference() {
 //top box walls
   //cube([top_length,top_width,top_height],center=true);
   roundedBox(size=[top_length,top_width,top_height],radius=corner_radius,sidesonly=true);
-  translate([0,0,wall_depth])
-  cube([top_length-wall_depth,top_width-wall_depth,top_height-wall_depth],center=true);
+  translate([0,0,2*wall_depth])
+  cube([top_length-2*wall_depth,top_width-2*wall_depth,top_height-wall_depth],center=true);
 }
 
 // screw columns
   translate([(top_length/2-corner_screw_distance),
     (top_width/2-corner_screw_distance),
     0])
-    cylinder(r=screw_radius + wall_depth/2,h=top_height, center=true);
+    cylinder(r=screw_radius + wall_depth,h=top_height, center=true);
   translate([(top_length/2-corner_screw_distance),
     -(top_width/2-corner_screw_distance),
     0])
-    cylinder(r=screw_radius + wall_depth/2,h=top_height, center=true);
+    cylinder(r=screw_radius + wall_depth,h=top_height, center=true);
   translate([-(top_length/2-corner_screw_distance),
     (top_width/2-corner_screw_distance),
     0])
-    cylinder(r=screw_radius + wall_depth/2,h=top_height, center=true);
+    cylinder(r=screw_radius + wall_depth,h=top_height, center=true);
   translate([-(top_length/2-corner_screw_distance),
     -(top_width/2-corner_screw_distance),
     0])
-    cylinder(r=screw_radius + wall_depth/2,h=top_height, center=true);
+    cylinder(r=screw_radius + wall_depth,h=top_height, center=true);
 }
 
 //screw holes
@@ -102,7 +102,7 @@ difference() {
         // If Column A, half row above center Y, if B half row below center Y
         center_y = (ESP32_pin1_column == "A") ? row_spacing/2 : -row_spacing/2;
         translate([-top_length/2, center_y, center_z])
-            cube([2*wall_depth, usb_width,usb_height],center=true);  
+            cube([4*wall_depth, usb_width,usb_height],center=true);  
         echo("Looking at outside, plate at bottom");
         echo("usb right edge from box edge",top_width/2-center_y-usb_width/2);
         echo("usb bottom edge from bottom edge",usb_center_from_bottom-usb_height/2);
@@ -122,7 +122,7 @@ difference() {
         center_x = board_x - board_length/2;
         translate([center_x, top_width/2, center_z])
             rotate([90,0,0])
-            cylinder(r=jack_radius,h=2*wall_depth, center=true);  
+            cylinder(r=jack_radius,h=4*wall_depth, center=true);  
         echo("Looking at outside, plate at bottom");
         echo("jack center from box right edge",top_length/2-center_x);
         echo("jack center from bottom edge",jack_center_from_bottom);

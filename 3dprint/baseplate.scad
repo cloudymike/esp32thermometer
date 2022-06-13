@@ -4,7 +4,7 @@ include <parameters.scad>
 use <knurlpocket.scad>
 use <MCAD/boxes.scad>
 
-base_height = wall_depth;
+base_height = 2 * wall_depth;
 base_length = box_length;
 base_width = box_width;
 echo("baseplate size:",base_length,base_width,base_height);
