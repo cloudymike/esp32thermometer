@@ -22,6 +22,14 @@ top_width = box_width;
 screw_radius = 1.75;
 echo("topbox size:",top_length,top_width,top_height);
 
+inside_length = top_length-wall_depth;
+inside_width = top_width-wall_depth;
+inside_height = top_height-wall_depth;
+inside_offset = wall_depth;
+echo("Inside size:",inside_length,inside_width,inside_height);
+echo("Side wall width:",(top_length-inside_length)/2);
+echo("Top wall width:",top_height - inside_height+inside_offset/2);
+
 
 difference() {
 union() {
@@ -29,8 +37,8 @@ difference() {
 //top box walls
   //cube([top_length,top_width,top_height],center=true);
   roundedBox(size=[top_length,top_width,top_height],radius=corner_radius,sidesonly=true);
-  translate([0,0,2*wall_depth])
-  cube([top_length-2*wall_depth,top_width-2*wall_depth,top_height-wall_depth],center=true);
+  translate([0,0,inside_offset])
+  cube([inside_length,inside_width,inside_height],center=true);
 }
 
 // screw columns

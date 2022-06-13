@@ -97,11 +97,3 @@ oled_bottom_space = 8;
 oled_pin1 = 10;
 oled_pin_from_top = 2;
 
-if (is_undef(display_pin1_row)) {
-    echo("No display");
-}
-else {
-    echo("display at row", display_pin1_row);
-}
-
-
