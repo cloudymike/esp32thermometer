@@ -73,13 +73,13 @@ first_column =
 //Common parameters
 
 board_buffer = 3;
-wall_depth = 5;
+wall_depth = 2.5;
 
 row_spacing = 2.54;
 
 
-box_length = board_length +2*wall_depth + 2*board_buffer;
-box_width = board_width + 2*wall_depth + 2*board_buffer;
+box_length = board_length +4*wall_depth + 2*board_buffer;
+box_width = board_width + 4*wall_depth + 2*board_buffer;
 corner_radius=5;
 
 knurl_depth = 5;

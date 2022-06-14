@@ -16,16 +16,16 @@ use <MCAD/boxes.scad>
 
 board_height = 17.25; 
 air_gap = 5.75; // space above top of board
-top_height = wall_depth + board_height + knurl_depth + air_gap;
+top_height = 2*wall_depth + board_height + knurl_depth + air_gap;
 top_length = box_length;
 top_width = box_width;
 screw_radius = 1.75;
 echo("topbox size:",top_length,top_width,top_height);
 
-inside_length = top_length-wall_depth;
-inside_width = top_width-wall_depth;
-inside_height = top_height-wall_depth;
-inside_offset = wall_depth;
+inside_length = top_length-2*wall_depth;
+inside_width = top_width-2*wall_depth;
+inside_height = top_height-2*wall_depth;
+inside_offset = 2*wall_depth;
 echo("Inside size:",inside_length,inside_width,inside_height);
 echo("Side wall width:",(top_length-inside_length)/2);
 echo("Top wall width:",top_height - inside_height+inside_offset/2);
@@ -45,19 +45,19 @@ difference() {
   translate([(top_length/2-corner_screw_distance),
     (top_width/2-corner_screw_distance),
     0])
-    cylinder(r=screw_radius + wall_depth/2,h=top_height, center=true);
+    cylinder(r=screw_radius + wall_depth,h=top_height, center=true);
   translate([(top_length/2-corner_screw_distance),
     -(top_width/2-corner_screw_distance),
     0])
-    cylinder(r=screw_radius + wall_depth/2,h=top_height, center=true);
+    cylinder(r=screw_radius + wall_depth,h=top_height, center=true);
   translate([-(top_length/2-corner_screw_distance),
     (top_width/2-corner_screw_distance),
     0])
-    cylinder(r=screw_radius + wall_depth/2,h=top_height, center=true);
+    cylinder(r=screw_radius + wall_depth,h=top_height, center=true);
   translate([-(top_length/2-corner_screw_distance),
     -(top_width/2-corner_screw_distance),
     0])
-    cylinder(r=screw_radius + wall_depth/2,h=top_height, center=true);
+    cylinder(r=screw_radius + wall_depth,h=top_height, center=true);
 }
 
 //screw holes
@@ -110,7 +110,7 @@ difference() {
         // If Column A, half row above center Y, if B half row below center Y
         center_y = (ESP32_pin1_column == "A") ? row_spacing/2 : -row_spacing/2;
         translate([-top_length/2, center_y, center_z])
-            cube([2*wall_depth, usb_width,usb_height],center=true);  
+            cube([4*wall_depth, usb_width,usb_height],center=true);  
         echo("Looking at outside, plate at bottom");
         echo("usb right edge from box edge",top_width/2-center_y-usb_width/2);
         echo("usb bottom edge from bottom edge",usb_center_from_bottom-usb_height/2);
@@ -130,7 +130,7 @@ difference() {
         center_x = board_x - board_length/2;
         translate([center_x, top_width/2, center_z])
             rotate([90,0,0])
-            cylinder(r=jack_radius,h=2*wall_depth, center=true);  
+            cylinder(r=jack_radius,h=4*wall_depth, center=true);  
         echo("Looking at outside, plate at bottom");
         echo("jack center from box right edge",top_length/2-center_x);
         echo("jack center from bottom edge",jack_center_from_bottom);
