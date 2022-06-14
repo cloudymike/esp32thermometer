@@ -1,7 +1,7 @@
-ECHO: "topbox size:", 104.9, 68.1, 33
-ECHO: "Inside size:", 99.9, 63.1, 28
+ECHO: "topbox size:", 104.9, 68.1, 27.5
+ECHO: "Inside size:", 99.9, 63.1, 27.5
 ECHO: "Side wall width:", 2.5
-ECHO: "Top wall width:", 7.5
+ECHO: "Top wall width:", 2.5
 ECHO: "OLED center", 22.73, -5.05
 ECHO: "OLED left edge from box edge", 61.48
 ECHO: "OLED bottom edge from box edge", 31.6
