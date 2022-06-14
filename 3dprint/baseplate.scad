@@ -34,6 +34,7 @@ difference() {
 
 
 //top knurdle holder for PCB standoff
+echo("PCB standoff distance:",m3_hole_distance);
 if (m3_hole_distance * 2 < base_length) { 
     translate([(m3_hole_distance),0,5])
         m3knurl_ring();
@@ -41,11 +42,14 @@ if (m3_hole_distance * 2 < base_length) {
         m3knurl_ring();
     translate([0,0,5])
         m3knurl_ring();
+    echo("PCP standoff from edge:", (base_length-2*m3_hole_distance)/2);
+    
 } 
 else {
     translate([(m3_hole_distance/2),0,5])
         m3knurl_ring();
     translate([-(m3_hole_distance/2),0,5])
         m3knurl_ring();
+    echo("PCP standoff from edge:", (base_length-m3_hole_distance)/2);
 }
 
