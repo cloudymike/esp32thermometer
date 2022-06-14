@@ -23,8 +23,12 @@ module m3knurl_ring(knurl_depth = 5)
 
 module m3knurl_pocket(knurl_depth = 5)
 {
- cylinder(h=knurl_depth+0.001, r=knurl_radius,center=true);
+ union() {
+    cylinder(h=knurl_depth+0.001, r=knurl_radius, center=true);
+    translate([0,0,0.4*knurl_depth])
+        cylinder(h=0.25 * knurl_depth, r1=knurl_radius, r2=1.2*knurl_radius, center=true);
+ }
 }
 
 m3knurl_ring();
-translate([20,0,0]) m3knurl_pocket();
+translate([10,0,0]) m3knurl_pocket();
