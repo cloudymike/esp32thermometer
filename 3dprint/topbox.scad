@@ -15,7 +15,7 @@ use <knurlpocket.scad>
 use <MCAD/boxes.scad>
 
 board_height = 17.25; 
-air_gap = 5.75; // space above top of board
+air_gap = 0.25; // space above top of board
 top_height = 2*wall_depth + board_height + knurl_depth + air_gap;
 top_length = box_length;
 top_width = box_width;
@@ -24,11 +24,11 @@ echo("topbox size:",top_length,top_width,top_height);
 
 inside_length = top_length-2*wall_depth;
 inside_width = top_width-2*wall_depth;
-inside_height = top_height-2*wall_depth;
-inside_offset = 2*wall_depth;
+inside_height = top_height;
+inside_offset = wall_depth; 
 echo("Inside size:",inside_length,inside_width,inside_height);
 echo("Side wall width:",(top_length-inside_length)/2);
-echo("Top wall width:",top_height - inside_height+inside_offset/2);
+echo("Top wall width:",top_height - inside_height + inside_offset);
 
 
 difference() {
