@@ -21,4 +21,4 @@ $PUSHCMD $DEVKITDIR/oled/bignumber.py
 $PUSHCMD main.py
 
 echo "Resetting board..."
-sudo timeout 2  ampy --port /dev/ttyUSB0 run $DEVKITDIR/reset/reset.py
+timeout 2  ampy --port /dev/ttyUSB0 run $DEVKITDIR/reset/reset.py
