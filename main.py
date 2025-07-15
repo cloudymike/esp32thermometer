@@ -48,11 +48,8 @@ ip = ifconfig[0]
 ###############################################
 #  Setup OLED
 ###############################################
-i2c = I2C(-1, scl=Pin(22), sda=Pin(21))
-oledReset=Pin(16, Pin.OUT)
-oledReset.value(0)
-time.sleep_ms(500)
-oledReset.value(1)
+i2c = I2C(-1, scl=Pin(7), sda=Pin(6))
+
 oled_width = 128
 oled_height = 64
 oled = ssd1306.SSD1306_I2C(oled_width, oled_height, i2c)
@@ -78,7 +75,7 @@ tempDevice = tempreader.tempreader(unit)
 ###############################################
 #  Setup Display loop
 ###############################################
-displaytimer = machine.Timer(-1)
+displaytimer = machine.Timer(0)
 displaytimer.init(period=1000,
                   mode=machine.Timer.PERIODIC,
                   callback=lambda t:displayLambda(tempDevice, oled, rtc, ip))

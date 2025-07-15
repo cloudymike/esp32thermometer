@@ -1,9 +1,13 @@
 #!/bin/bash
-PORT='/dev/ttyUSB0'
+
+USBPORT=$(ls /dev/ | grep -e USB -e ACM)
+PORT=/dev/$USBPORT
+echo Port used $PORT
+
 PUSHCMD="ampy --port $PORT put "
 CURDIR=$(pwd)
 #TOPDIR=${CURDIR%/*}
-DEVKITDIR=$CURDIR/micropythonexamples/DEVKITv1
+DEVKITDIR=$CURDIR/micropythonexamples/ESP32C3
 
 echo "Loading secret configs"
 # Enter your path to your WLAN configuration file here, see ../wlan/wlanconfig.py for example
@@ -21,4 +25,4 @@ $PUSHCMD $DEVKITDIR/oled/bignumber.py
 $PUSHCMD main.py
 
 echo "Resetting board..."
-timeout 2  ampy --port /dev/ttyUSB0 run $DEVKITDIR/reset/reset.py
+timeout 2  ampy --port $PORT run $DEVKITDIR/reset/reset.py
